@@ -10,7 +10,7 @@
     "description": "Wechat SDK For Hyperf",
     "autoload": {
         "psr-4": {
-            "Naixiaoxin\\HyperfWechat\\": "src/"
+            "Tegic\\HyperfWechat\\": "src/"
         }
     },
     "autoload-dev": {
