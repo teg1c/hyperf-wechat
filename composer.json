@@ -1,5 +1,5 @@
 {
-    "name": "naixiaoxin/hyperf-wechat",
+    "name": "tegic/hyperf-wechat",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -19,11 +19,11 @@
         }
     },
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-swoole": ">=4.4",
         "hyperf/guzzle": "~1.1.0|~2.0.0",
         "hyperf/super-globals": "~1.1.0|~2.0.0",
-        "overtrue/wechat": "^4.2"
+        "overtrue/wechat": "~5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
@@ -41,7 +41,7 @@
     },
     "extra": {
         "hyperf": {
-            "config": "Naixiaoxin\\HyperfWechat\\ConfigProvider"
+            "config": "Tegic\\HyperfWechat\\ConfigProvider"
         }
     }
 }

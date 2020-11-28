@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
-namespace Naixiaoxin\HyperfWechat;
+namespace Tegic\HyperfWechat;
 
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Guzzle\CoroutineHandler;
@@ -77,7 +77,7 @@ class Factory
         $app = \EasyWeChat\Factory::$functionName($config);
         $app->rebind('cache', $this->cache);
         $app['guzzle_handler'] = CoroutineHandler::class;
-        $app->rebind('request', $this->getRequest());
+        in_array('request',$args) && $app->rebind('request', $this->getRequest());
         return $app;
     }
 
