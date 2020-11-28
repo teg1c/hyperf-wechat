@@ -67,6 +67,11 @@ class Factory
 
     public function __call($functionName, $args)
     {
+        $rebind = false;
+        if (isset($args[0]) && $args[0] == 'request') {
+            array_shift($args);
+            $rebind = true;
+        }
         $accountName = $args[0] ?? 'default';
         $accountConfig = $args[1] ?? [];
         if (!isset($this->configMap[$functionName])) {
@@ -77,7 +82,7 @@ class Factory
         $app = \EasyWeChat\Factory::$functionName($config);
         $app->rebind('cache', $this->cache);
         $app['guzzle_handler'] = CoroutineHandler::class;
-        in_array('request',$args) && $app->rebind('request', $this->getRequest());
+        $rebind && $app->rebind('request', $this->getRequest());
         return $app;
     }
 
