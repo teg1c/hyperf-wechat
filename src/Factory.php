@@ -15,7 +15,9 @@ namespace Tegic\HyperfWechat;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Guzzle\CoroutineHandler;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Utils\Context;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -67,11 +69,7 @@ class Factory
 
     public function __call($functionName, $args)
     {
-        $rebind = false;
-        if (isset($args[0]) && $args[0] == 'request') {
-            array_shift($args);
-            $rebind = true;
-        }
+
         $accountName = $args[0] ?? 'default';
         $accountConfig = $args[1] ?? [];
         if (!isset($this->configMap[$functionName])) {
@@ -82,7 +80,7 @@ class Factory
         $app = \EasyWeChat\Factory::$functionName($config);
         $app->rebind('cache', $this->cache);
         $app['guzzle_handler'] = CoroutineHandler::class;
-        $rebind && $app->rebind('request', $this->getRequest());
+        Context::get(ServerRequestInterface::class) && $app->rebind('request', $this->getRequest());
         return $app;
     }
 
